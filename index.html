@@ -4,7 +4,6 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1">
 <title>Shop & Mandi Management</title>
-
 <style>
 *{box-sizing:border-box}
 body{
@@ -14,7 +13,6 @@ body{
   color:#222;
 }
 .hidden{display:none!important}
-
 #lock{
   min-height:100vh;
   display:flex;
@@ -32,7 +30,10 @@ body{
   text-align:center;
   box-shadow:0 15px 40px #0004;
 }
-.lockbox h1{margin:5px 0 8px;color:#164e63}
+.lockbox h1{
+  margin:5px 0 8px;
+  color:#164e63
+}
 .lockbox p{color:#666}
 input,select,button,textarea{
   width:100%;
@@ -54,7 +55,6 @@ button.red{background:#dc2626}
 button.orange{background:#ea580c}
 button.dark{background:#334155}
 button.light{background:#64748b}
-
 header{
   background:linear-gradient(135deg,#164e63,#2563eb);
   color:white;
@@ -69,14 +69,16 @@ header{
   align-items:center;
   gap:10px;
 }
-header h2{margin:0;font-size:21px}
+header h2{
+  margin:0;
+  font-size:21px
+}
 .logout{
   width:auto;
   margin:0;
   padding:8px 12px;
   background:#ffffff25;
 }
-
 nav{
   display:flex;
   overflow-x:auto;
@@ -97,9 +99,11 @@ nav button.active{
   background:#2563eb;
   color:white;
 }
-
-main{padding:12px;max-width:1100px;margin:auto}
-
+main{
+  padding:12px;
+  max-width:1100px;
+  margin:auto
+}
 .cards{
   display:grid;
   grid-template-columns:repeat(2,1fr);
@@ -111,8 +115,11 @@ main{padding:12px;max-width:1100px;margin:auto}
   padding:16px;
   box-shadow:0 3px 12px #00000012;
 }
-.card b{font-size:21px;display:block;margin-top:6px}
-
+.card b{
+  font-size:21px;
+  display:block;
+  margin-top:6px
+}
 .section{
   background:white;
   padding:15px;
@@ -120,14 +127,18 @@ main{padding:12px;max-width:1100px;margin:auto}
   margin-bottom:12px;
   box-shadow:0 3px 12px #00000010;
 }
-.section h3{margin-top:0;color:#164e63}
-
+.section h3{
+  margin-top:0;
+  color:#164e63
+}
 .btnrow{
   display:grid;
   grid-template-columns:repeat(2,1fr);
   gap:7px;
 }
-.tablewrap{overflow-x:auto}
+.tablewrap{
+  overflow-x:auto
+}
 table{
   width:100%;
   border-collapse:collapse;
@@ -139,51 +150,110 @@ th,td{
   padding:9px;
   text-align:left;
 }
-th{background:#e8eef7;color:#164e63}
-
-.msg{
-  padding:10px;
-  border-radius:10px;
-  background:#ecfdf5;
-  color:#166534;
-  margin-bottom:10px;
+th{
+  background:#e8eef7;
+  color:#164e63
 }
-.small{font-size:13px;color:#64748b}
-
+.small{
+  font-size:13px;
+  color:#64748b
+}
+/* Selected row */
+tr.selected{
+  background:#dbeafe!important;
+  outline:2px solid #2563eb;
+}
+/* Mobile touch friendly */
+tbody tr{
+  cursor:pointer;
+}
+/* PRINT */
+@media print{
+  body{
+    background:white;
+  }
+  body *{
+    visibility:hidden!important;
+  }
+  body.printing .print-area,
+  body.printing .print-area *{
+    visibility:visible!important;
+  }
+  body.printing .print-area{
+    position:absolute;
+    left:0;
+    top:0;
+    width:100%;
+    margin:0;
+    padding:10px;
+    box-shadow:none;
+    background:white;
+  }
+  body.printing .print-area .print-title{
+    display:block!important;
+    text-align:center;
+    margin-bottom:15px;
+    color:#000;
+  }
+  body.printing .print-area table{
+    width:100%;
+    min-width:0;
+  }
+  body.printing .print-area th,
+  body.printing .print-area td{
+    border:1px solid #000;
+    color:#000;
+  }
+  body.printing .print-area tr.selected{
+    background:white!important;
+    outline:none!important;
+  }
+}
+.print-title{
+  display:none;
+}
 @media(min-width:700px){
-  .cards{grid-template-columns:repeat(4,1fr)}
-  .formgrid{display:grid;grid-template-columns:1fr 1fr;gap:8px}
-  .btnrow{grid-template-columns:repeat(4,1fr)}
+  .cards{
+    grid-template-columns:repeat(4,1fr)
+  }
+  .formgrid{
+    display:grid;
+    grid-template-columns:1fr 1fr;
+    gap:8px
+  }
+  .btnrow{
+    grid-template-columns:repeat(4,1fr)
+  }
 }
 </style>
 </head>
-
 <body>
-
 <!-- PASSWORD -->
 <div id="lock">
   <div class="lockbox">
     <div style="font-size:45px">🔐</div>
     <h1>Shop & Mandi</h1>
     <p>Enter password to open software</p>
-    <input id="password" type="password" inputmode="numeric"
-           placeholder="Password" maxlength="4"
-           onkeydown="if(event.key==='Enter')login()">
+    <input
+      id="password"
+      type="password"
+      inputmode="numeric"
+      placeholder="Password"
+      maxlength="4"
+      onkeydown="if(event.key==='Enter')login()"
+    >
     <button onclick="login()">OPEN SOFTWARE</button>
     <p id="wrong" style="color:#dc2626"></p>
   </div>
 </div>
-
 <!-- APP -->
 <div id="app" class="hidden">
-
 <header>
   <div class="headerrow">
     <h2>🌽 Shop & Mandi Management</h2>
     <button class="logout" onclick="logout()">🔒 Lock</button>
   </div>
 </header>
-
 <nav id="nav">
   <button onclick="showTab('dashboard')" class="active">🏠 Home</button>
   <button onclick="showTab('parties')">👥 Parties</button>
@@ -193,9 +263,7 @@ th{background:#e8eef7;color:#164e63}
   <button onclick="showTab('payments')">💰 Payments</button>
   <button onclick="showTab('expenses')">🧾 Expenses</button>
 </nav>
-
 <main>
-
 <!-- DASHBOARD -->
 <section id="dashboard" class="tab">
   <div class="cards">
@@ -204,7 +272,6 @@ th{background:#e8eef7;color:#164e63}
     <div class="card">📥 Purchase<b id="cPurchase">0</b></div>
     <div class="card">📤 Sales<b id="cSales">0</b></div>
   </div>
-
   <div class="section" style="margin-top:12px">
     <h3>📊 Business Summary</h3>
     <p>Total Purchase: <b id="dPurchase">0</b></p>
@@ -214,65 +281,120 @@ th{background:#e8eef7;color:#164e63}
     <button class="orange" onclick="showProfit()">VIEW PROFIT</button>
   </div>
 </section>
-
 <!-- PARTIES -->
 <section id="parties" class="tab hidden">
 <div class="section">
 <h3>👥 Party / Khata</h3>
 <div class="formgrid">
-<input id="pName" placeholder="Party Name" onkeydown="nextField(event,'pPhone')">
-<input id="pPhone" placeholder="Phone Number" onkeydown="nextField(event,'pAddress')">
-<input id="pAddress" placeholder="Address" onkeydown="nextField(event,'pDate')">
-<input id="pDate" type="date" onkeydown="if(event.key==='Enter')addParty()">
+<input
+ id="pName"
+ placeholder="Party Name"
+ onkeydown="nextField(event,'pPhone')"
+>
+<input
+ id="pPhone"
+ placeholder="Phone Number"
+ onkeydown="nextField(event,'pAddress')"
+>
+<input
+ id="pAddress"
+ placeholder="Address"
+ onkeydown="nextField(event,'pDate')"
+>
+<input
+ id="pDate"
+ type="date"
+ onkeydown="if(event.key==='Enter')addParty()"
+>
 </div>
-
 <div class="btnrow">
-<button class="green" onclick="addParty()">➕ Add Party</button>
-<button class="dark" onclick="clearParty()">Clear</button>
-<button class="red" onclick="deleteSelected('parties')">🗑 Delete</button>
-<button class="orange" onclick="window.print()">🖨 Print</button>
+<button class="green" onclick="addParty()">
+➕ Add Party
+</button>
+<button class="dark" onclick="clearParty()">
+Clear
+</button>
+<button class="red" onclick="deleteSelected('parties')">
+🗑 Delete Selected
+</button>
+<button class="orange" onclick="printList('parties')">
+🖨 Print List
+</button>
 </div>
+<p class="small">
+Tap a party row first to select it, then press Delete.
+</p>
 </div>
-
-<div class="section">
-<div class="tablewrap">
+<div class="section tablewrap print-area" id="partyPrint">
+<div class="print-title">
+<h2>Shop & Mandi - Party List</h2>
+</div>
 <table>
-<thead><tr><th>Party</th><th>Phone</th><th>Address</th><th>Date</th></tr></thead>
+<thead>
+<tr>
+<th>Party</th>
+<th>Phone</th>
+<th>Address</th>
+<th>Date</th>
+</tr>
+</thead>
 <tbody id="partyTable"></tbody>
 </table>
 </div>
-</div>
 </section>
-
 <!-- PRODUCTS -->
 <section id="products" class="tab hidden">
 <div class="section">
 <h3>🌽 Products</h3>
 <div class="formgrid">
-<input id="prodName" placeholder="Product Name"
- onkeydown="nextField(event,'prodWeight')">
-<input id="prodWeight" type="number" placeholder="Weight per Bag (KG)"
- onkeydown="if(event.key==='Enter')addProduct()">
+<input
+ id="prodName"
+ placeholder="Product Name"
+ onkeydown="nextField(event,'prodWeight')"
+>
+<input
+ id="prodWeight"
+ type="number"
+ placeholder="Weight per Bag (KG)"
+ onkeydown="if(event.key==='Enter')addProduct()"
+>
 </div>
-
-<p class="small">Examples: Rice 50 KG, Corn 50 KG, Potato 60 KG or 120 KG</p>
-
+<p class="small">
+Examples: Rice 50 KG, Corn 50 KG, Potato 60 KG or 120 KG
+</p>
 <div class="btnrow">
-<button class="green" onclick="addProduct()">➕ Add Product</button>
-<button class="dark" onclick="clearProduct()">Clear</button>
-<button class="red" onclick="deleteSelected('products')">🗑 Delete</button>
-<button class="orange" onclick="window.print()">🖨 Print</button>
+<button class="green" onclick="addProduct()">
+➕ Add Product
+</button>
+<button class="dark" onclick="clearProduct()">
+Clear
+</button>
+<button class="red" onclick="deleteSelected('products')">
+🗑 Delete Selected
+</button>
+<button class="orange" onclick="printList('products')">
+🖨 Print List
+</button>
 </div>
+<p class="small">
+Tap a product row first to select it, then press Delete.
+</p>
 </div>
-
-<div class="section tablewrap">
+<div class="section tablewrap print-area" id="productPrint">
+<div class="print-title">
+<h2>Shop & Mandi - Product List</h2>
+</div>
 <table>
-<thead><tr><th>Product</th><th>Weight / Bag</th></tr></thead>
+<thead>
+<tr>
+<th>Product</th>
+<th>Weight / Bag</th>
+</tr>
+</thead>
 <tbody id="productTable"></tbody>
 </table>
 </div>
 </section>
-
 <!-- PURCHASE -->
 <section id="purchase" class="tab hidden">
 <div class="section">
@@ -286,24 +408,38 @@ th{background:#e8eef7;color:#164e63}
 <input id="buyPaid" type="number" placeholder="Paid Now">
 <input id="buyDate" type="date">
 </div>
-
 <div class="btnrow">
-<button class="green" onclick="addPurchase()">💾 Save Purchase</button>
-<button class="dark" onclick="clearPurchase()">Clear</button>
-<button class="orange" onclick="window.print()">🖨 Print</button>
+<button class="green" onclick="addPurchase()">
+💾 Save Purchase
+</button>
+<button class="dark" onclick="clearPurchase()">
+Clear
+</button>
+<button class="orange" onclick="printList('purchase')">
+🖨 Print List
+</button>
 </div>
 </div>
-
-<div class="section tablewrap">
+<div class="section tablewrap print-area">
+<div class="print-title">
+<h2>Shop & Mandi - Purchase List</h2>
+</div>
 <table>
 <thead>
-<tr><th>Party</th><th>Product</th><th>Bags</th><th>KG</th><th>Rate</th><th>Total</th><th>Date</th></tr>
+<tr>
+<th>Party</th>
+<th>Product</th>
+<th>Bags</th>
+<th>KG</th>
+<th>Rate</th>
+<th>Total</th>
+<th>Date</th>
+</tr>
 </thead>
 <tbody id="purchaseTable"></tbody>
 </table>
 </div>
 </section>
-
 <!-- SALE -->
 <section id="sale" class="tab hidden">
 <div class="section">
@@ -317,24 +453,38 @@ th{background:#e8eef7;color:#164e63}
 <input id="saleReceived" type="number" placeholder="Received Now">
 <input id="saleDate" type="date">
 </div>
-
 <div class="btnrow">
-<button class="green" onclick="addSale()">💾 Save Sale</button>
-<button class="dark" onclick="clearSale()">Clear</button>
-<button class="orange" onclick="window.print()">🖨 Print</button>
+<button class="green" onclick="addSale()">
+💾 Save Sale
+</button>
+<button class="dark" onclick="clearSale()">
+Clear
+</button>
+<button class="orange" onclick="printList('sale')">
+🖨 Print List
+</button>
 </div>
 </div>
-
-<div class="section tablewrap">
+<div class="section tablewrap print-area">
+<div class="print-title">
+<h2>Shop & Mandi - Sale List</h2>
+</div>
 <table>
 <thead>
-<tr><th>Party</th><th>Product</th><th>Bags</th><th>KG</th><th>Rate</th><th>Total</th><th>Date</th></tr>
+<tr>
+<th>Party</th>
+<th>Product</th>
+<th>Bags</th>
+<th>KG</th>
+<th>Rate</th>
+<th>Total</th>
+<th>Date</th>
+</tr>
 </thead>
 <tbody id="saleTable"></tbody>
 </table>
 </div>
 </section>
-
 <!-- PAYMENTS -->
 <section id="payments" class="tab hidden">
 <div class="section">
@@ -349,22 +499,36 @@ th{background:#e8eef7;color:#164e63}
 <input id="payNote" placeholder="Note">
 <input id="payDate" type="date">
 </div>
-
 <div class="btnrow">
-<button class="green" onclick="addPayment()">💾 Save Payment</button>
-<button class="dark" onclick="clearPayment()">Clear</button>
-<button class="orange" onclick="window.print()">🖨 Print</button>
+<button class="green" onclick="addPayment()">
+💾 Save Payment
+</button>
+<button class="dark" onclick="clearPayment()">
+Clear
+</button>
+<button class="orange" onclick="printList('payments')">
+🖨 Print List
+</button>
 </div>
 </div>
-
-<div class="section tablewrap">
+<div class="section tablewrap print-area">
+<div class="print-title">
+<h2>Shop & Mandi - Payment List</h2>
+</div>
 <table>
-<thead><tr><th>Party</th><th>Type</th><th>Amount</th><th>Note</th><th>Date</th></tr></thead>
+<thead>
+<tr>
+<th>Party</th>
+<th>Type</th>
+<th>Amount</th>
+<th>Note</th>
+<th>Date</th>
+</tr>
+</thead>
 <tbody id="paymentTable"></tbody>
 </table>
 </div>
 </section>
-
 <!-- EXPENSES -->
 <section id="expenses" class="tab hidden">
 <div class="section">
@@ -374,28 +538,38 @@ th{background:#e8eef7;color:#164e63}
 <input id="expAmount" type="number" placeholder="Amount">
 <input id="expDate" type="date">
 </div>
-
 <div class="btnrow">
-<button class="green" onclick="addExpense()">💾 Save Expense</button>
-<button class="dark" onclick="clearExpense()">Clear</button>
-<button class="orange" onclick="window.print()">🖨 Print</button>
+<button class="green" onclick="addExpense()">
+💾 Save Expense
+</button>
+<button class="dark" onclick="clearExpense()">
+Clear
+</button>
+<button class="orange" onclick="printList('expenses')">
+🖨 Print List
+</button>
 </div>
 </div>
-
-<div class="section tablewrap">
+<div class="section tablewrap print-area">
+<div class="print-title">
+<h2>Shop & Mandi - Expense List</h2>
+</div>
 <table>
-<thead><tr><th>Expense</th><th>Amount</th><th>Date</th></tr></thead>
+<thead>
+<tr>
+<th>Expense</th>
+<th>Amount</th>
+<th>Date</th>
+</tr>
+</thead>
 <tbody id="expenseTable"></tbody>
 </table>
 </div>
 </section>
-
 </main>
 </div>
-
 <script>
 const KEY="shop_mandi_mobile_data";
-
 let db=JSON.parse(localStorage.getItem(KEY)||'null')||{
  parties:[],
  products:[],
@@ -404,12 +578,12 @@ let db=JSON.parse(localStorage.getItem(KEY)||'null')||{
  payments:[],
  expenses:[]
 };
-
+/* SAVE */
 function save(){
  localStorage.setItem(KEY,JSON.stringify(db));
  render();
 }
-
+/* LOGIN */
 function login(){
  if(document.getElementById("password").value==="3838"){
   document.getElementById("lock").classList.add("hidden");
@@ -419,137 +593,245 @@ function login(){
   document.getElementById("wrong").textContent="Wrong password";
  }
 }
-
+/* LOGOUT */
 function logout(){
  document.getElementById("app").classList.add("hidden");
  document.getElementById("lock").classList.remove("hidden");
  document.getElementById("password").value="";
 }
-
+/* ENTER KEY */
 function nextField(e,id){
  if(e.key==="Enter"){
   e.preventDefault();
   document.getElementById(id).focus();
  }
 }
-
+/* TABS */
 function showTab(id){
- document.querySelectorAll(".tab").forEach(x=>x.classList.add("hidden"));
- document.getElementById(id).classList.remove("hidden");
- document.querySelectorAll("nav button").forEach(x=>x.classList.remove("active"));
+ document.querySelectorAll(".tab")
+ .forEach(x=>x.classList.add("hidden"));
+ document.getElementById(id)
+ .classList.remove("hidden");
+ document.querySelectorAll("nav button")
+ .forEach(x=>x.classList.remove("active"));
 }
-
+/* MONEY */
 function money(n){
  return Number(n||0).toLocaleString();
 }
-
+/* ADD PARTY */
 function addParty(){
  let name=pName.value.trim();
- if(!name)return alert("Please enter Party Name");
+ if(!name)
+ return alert("Please enter Party Name");
  db.parties.push({
-  name,phone:pPhone.value,address:pAddress.value,date:pDate.value
+  name,
+  phone:pPhone.value,
+  address:pAddress.value,
+  date:pDate.value
  });
  save();
  clearParty();
  alert("Party saved successfully");
 }
-
+/* CLEAR PARTY */
 function clearParty(){
- pName.value=pPhone.value=pAddress.value=pDate.value="";
+ pName.value="";
+ pPhone.value="";
+ pAddress.value="";
+ pDate.value="";
  pName.focus();
 }
-
+/* ADD PRODUCT */
 function addProduct(){
- let name=prodName.value.trim(), weight=prodWeight.value;
- if(!name)return alert("Please enter Product Name");
- db.products.push({name,weight});
+ let name=prodName.value.trim();
+ let weight=prodWeight.value;
+ if(!name)
+ return alert("Please enter Product Name");
+ db.products.push({
+  name,
+  weight
+ });
  save();
  clearProduct();
  alert("Product saved successfully");
 }
-
+/* CLEAR PRODUCT */
 function clearProduct(){
- prodName.value=prodWeight.value="";
+ prodName.value="";
+ prodWeight.value="";
  prodName.focus();
 }
-
+/* PURCHASE */
 function addPurchase(){
- let bags=Number(buyBags.value||0),rate=Number(buyRate.value||0);
- if(!buyParty.value||!buyProduct.value||bags<=0)return alert("Please fill Purchase details");
+ let bags=Number(buyBags.value||0);
+ let rate=Number(buyRate.value||0);
+ if(!buyParty.value||!buyProduct.value||bags<=0)
+ return alert("Please fill Purchase details");
  db.purchases.push({
-  party:buyParty.value,product:buyProduct.value,bags,
+  party:buyParty.value,
+  product:buyProduct.value,
+  bags,
   weight:Number(buyWeight.value||0),
-  rate,total:bags*rate,date:buyDate.value
+  rate,
+  total:bags*rate,
+  paid:Number(buyPaid.value||0),
+  date:buyDate.value
  });
  save();
  clearPurchase();
  alert("Purchase saved");
 }
-
+/* CLEAR PURCHASE */
 function clearPurchase(){
- document.querySelectorAll("#purchase input").forEach(x=>x.value="");
+ document.querySelectorAll("#purchase input")
+ .forEach(x=>x.value="");
 }
-
+/* SALE */
 function addSale(){
- let bags=Number(saleBags.value||0),rate=Number(saleRate.value||0);
- if(!saleParty.value||!saleProduct.value||bags<=0)return alert("Please fill Sale details");
+ let bags=Number(saleBags.value||0);
+ let rate=Number(saleRate.value||0);
+ if(!saleParty.value||!saleProduct.value||bags<=0)
+ return alert("Please fill Sale details");
  db.sales.push({
-  party:saleParty.value,product:saleProduct.value,bags,
+  party:saleParty.value,
+  product:saleProduct.value,
+  bags,
   weight:Number(saleWeight.value||0),
-  rate,total:bags*rate,date:saleDate.value
+  rate,
+  total:bags*rate,
+  received:Number(saleReceived.value||0),
+  date:saleDate.value
  });
  save();
  clearSale();
  alert("Sale saved");
 }
-
+/* CLEAR SALE */
 function clearSale(){
- document.querySelectorAll("#sale input").forEach(x=>x.value="");
+ document.querySelectorAll("#sale input")
+ .forEach(x=>x.value="");
 }
-
+/* PAYMENT */
 function addPayment(){
  let amount=Number(payAmount.value||0);
- if(!payParty.value||amount<=0)return alert("Please enter payment");
+ if(!payParty.value||amount<=0)
+ return alert("Please enter payment");
  db.payments.push({
-  party:payParty.value,type:payType.value,
-  amount,note:payNote.value,date:payDate.value
+  party:payParty.value,
+  type:payType.value,
+  amount,
+  note:payNote.value,
+  date:payDate.value
  });
  save();
  clearPayment();
  alert("Payment saved");
 }
-
+/* CLEAR PAYMENT */
 function clearPayment(){
- payAmount.value=payNote.value=payDate.value="";
+ payAmount.value="";
+ payNote.value="";
+ payDate.value="";
 }
-
+/* EXPENSE */
 function addExpense(){
  let amount=Number(expAmount.value||0);
- if(!expName.value||amount<=0)return alert("Please enter expense");
+ if(!expName.value||amount<=0)
+ return alert("Please enter expense");
  db.expenses.push({
-  name:expName.value,amount,date:expDate.value
+  name:expName.value,
+  amount,
+  date:expDate.value
  });
  save();
  clearExpense();
  alert("Expense saved");
 }
-
+/* CLEAR EXPENSE */
 function clearExpense(){
- expName.value=expAmount.value=expDate.value="";
+ expName.value="";
+ expAmount.value="";
+ expDate.value="";
 }
-
+/* SELECT ROW */
+function selectRow(type,index,row){
+ selectedRows[type]=index;
+ let tableId={
+  parties:"partyTable",
+  products:"productTable"
+ }[type];
+ if(tableId){
+  document
+  .querySelectorAll("#"+tableId+" tr")
+  .forEach(x=>x.classList.remove("selected"));
+ }
+ row.classList.add("selected");
+}
+/* SELECTED RECORD */
+let selectedRows={
+ parties:null,
+ products:null
+};
+/* DELETE SELECTED */
 function deleteSelected(type){
- if(!db[type].length)return alert("Nothing to delete");
- if(confirm("Delete the last record?")){
-  db[type].pop();
+ let index=selectedRows[type];
+ if(index===null || index===undefined){
+  return alert("Please tap a row first");
+ }
+ if(!db[type][index]){
+  selectedRows[type]=null;
+  return alert("Record not found");
+ }
+ let name="";
+ if(type==="parties"){
+  name=db[type][index].name;
+ }
+ if(type==="products"){
+  name=db[type][index].name;
+ }
+ if(confirm("Delete "+name+"?")){
+  db[type].splice(index,1);
+  selectedRows[type]=null;
   save();
+  alert("Deleted successfully");
  }
 }
-
+/* PRINT LIST ONLY */
+function printList(type){
+ document.body.classList.add("printing");
+ let areas=document.querySelectorAll(".print-area");
+ areas.forEach(x=>x.classList.remove("active-print"));
+ let target=null;
+ if(type==="parties")
+ target=document.getElementById("partyPrint");
+ if(type==="products")
+ target=document.getElementById("productPrint");
+ if(type==="purchase")
+ target=document.querySelector("#purchase .print-area");
+ if(type==="sale")
+ target=document.querySelector("#sale .print-area");
+ if(type==="payments")
+ target=document.querySelector("#payments .print-area");
+ if(type==="expenses")
+ target=document.querySelector("#expenses .print-area");
+ if(target){
+  target.classList.add("active-print");
+  window.print();
+ }
+ setTimeout(()=>{
+  document.body.classList.remove("printing");
+  areas.forEach(x=>x.classList.remove("active-print"));
+ },700);
+}
+/* PROFIT */
 function showProfit(){
- let purchase=db.purchases.reduce((a,x)=>a+x.total,0);
- let sales=db.sales.reduce((a,x)=>a+x.total,0);
- let expenses=db.expenses.reduce((a,x)=>a+x.amount,0);
+ let purchase=db.purchases
+ .reduce((a,x)=>a+x.total,0);
+ let sales=db.sales
+ .reduce((a,x)=>a+x.total,0);
+ let expenses=db.expenses
+ .reduce((a,x)=>a+x.amount,0);
  let profit=sales-purchase-expenses;
  alert(
  "Total Sales: "+money(sales)+
@@ -558,72 +840,116 @@ function showProfit(){
  "\nNet Profit: "+money(profit)
  );
 }
-
+/* DROPDOWN */
 function fillSelect(id,items){
  let el=document.getElementById(id);
  let old=el.value;
  el.innerHTML='<option value="">Select...</option>';
  items.forEach(x=>{
   let o=document.createElement("option");
-  o.value=x.name;o.textContent=x.name;
+  o.value=x.name;
+  o.textContent=x.name;
   el.appendChild(o);
  });
- if(items.some(x=>x.name===old))el.value=old;
+ if(items.some(x=>x.name===old))
+ el.value=old;
 }
-
+/* RENDER */
 function render(){
  cParties.textContent=db.parties.length;
  cProducts.textContent=db.products.length;
-
- let purchase=db.purchases.reduce((a,x)=>a+x.total,0);
- let sales=db.sales.reduce((a,x)=>a+x.total,0);
- let expenses=db.expenses.reduce((a,x)=>a+x.amount,0);
-
+ let purchase=db.purchases
+ .reduce((a,x)=>a+x.total,0);
+ let sales=db.sales
+ .reduce((a,x)=>a+x.total,0);
+ let expenses=db.expenses
+ .reduce((a,x)=>a+x.amount,0);
  cPurchase.textContent=money(purchase);
  cSales.textContent=money(sales);
-
  dPurchase.textContent=money(purchase);
  dSales.textContent=money(sales);
  dExpenses.textContent=money(expenses);
-
- partyTable.innerHTML=db.parties.map(x=>
- `<tr><td>${x.name}</td><td>${x.phone}</td><td>${x.address}</td><td>${x.date}</td></tr>`
+ /* PARTY TABLE */
+ partyTable.innerHTML=db.parties.map((x,i)=>
+ `<tr onclick="selectRow('parties',${i},this)">
+   <td>${x.name}</td>
+   <td>${x.phone}</td>
+   <td>${x.address}</td>
+   <td>${x.date}</td>
+ </tr>`
  ).join("");
-
- productTable.innerHTML=db.products.map(x=>
- `<tr><td>${x.name}</td><td>${x.weight} KG</td></tr>`
+ /* PRODUCT TABLE */
+ productTable.innerHTML=db.products.map((x,i)=>
+ `<tr onclick="selectRow('products',${i},this)">
+   <td>${x.name}</td>
+   <td>${x.weight} KG</td>
+ </tr>`
  ).join("");
-
+ /* PURCHASE */
  purchaseTable.innerHTML=db.purchases.map(x=>
- `<tr><td>${x.party}</td><td>${x.product}</td><td>${x.bags}</td><td>${x.bags*x.weight}</td><td>${money(x.rate)}</td><td>${money(x.total)}</td><td>${x.date}</td></tr>`
+ `<tr>
+   <td>${x.party}</td>
+   <td>${x.product}</td>
+   <td>${x.bags}</td>
+   <td>${x.bags*x.weight}</td>
+   <td>${money(x.rate)}</td>
+   <td>${money(x.total)}</td>
+   <td>${x.date}</td>
+ </tr>`
  ).join("");
-
+ /* SALE */
  saleTable.innerHTML=db.sales.map(x=>
- `<tr><td>${x.party}</td><td>${x.product}</td><td>${x.bags}</td><td>${x.bags*x.weight}</td><td>${money(x.rate)}</td><td>${money(x.total)}</td><td>${x.date}</td></tr>`
+ `<tr>
+   <td>${x.party}</td>
+   <td>${x.product}</td>
+   <td>${x.bags}</td>
+   <td>${x.bags*x.weight}</td>
+   <td>${money(x.rate)}</td>
+   <td>${money(x.total)}</td>
+   <td>${x.date}</td>
+ </tr>`
  ).join("");
-
+ /* PAYMENTS */
  paymentTable.innerHTML=db.payments.map(x=>
- `<tr><td>${x.party}</td><td>${x.type==="IN"?"Received":"Given"}</td><td>${money(x.amount)}</td><td>${x.note}</td><td>${x.date}</td></tr>`
+ `<tr>
+   <td>${x.party}</td>
+   <td>${x.type==="IN"?"Received":"Given"}</td>
+   <td>${money(x.amount)}</td>
+   <td>${x.note}</td>
+   <td>${x.date}</td>
+ </tr>`
  ).join("");
-
+ /* EXPENSES */
  expenseTable.innerHTML=db.expenses.map(x=>
- `<tr><td>${x.name}</td><td>${money(x.amount)}</td><td>${x.date}</td></tr>`
+ `<tr>
+   <td>${x.name}</td>
+   <td>${money(x.amount)}</td>
+   <td>${x.date}</td>
+ </tr>`
  ).join("");
-
+ /* DROPDOWNS */
  fillSelect("buyParty",db.parties);
  fillSelect("saleParty",db.parties);
  fillSelect("payParty",db.parties);
  fillSelect("buyProduct",db.products);
  fillSelect("saleProduct",db.products);
 }
-
+/* TODAY DATE */
 document.addEventListener("DOMContentLoaded",()=>{
- let today=new Date().toISOString().slice(0,10);
- ["pDate","buyDate","saleDate","payDate","expDate"].forEach(id=>{
-  if(document.getElementById(id))document.getElementById(id).value=today;
+ let today=new Date()
+ .toISOString()
+ .slice(0,10);
+ [
+  "pDate",
+  "buyDate",
+  "saleDate",
+  "payDate",
+  "expDate"
+ ].forEach(id=>{
+  if(document.getElementById(id))
+  document.getElementById(id).value=today;
  });
 });
 </script>
-
 </body>
 </html>
